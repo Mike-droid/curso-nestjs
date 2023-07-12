@@ -9,4 +9,14 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
+
+  @Get('nuevo')
+  newEndpoint() {
+    return 'yo soy nuevo';
+  }
+
+  @Get('/otro/') //! no importan los slash
+  another() {
+    return 'yo soy otro';
+  }
 }
