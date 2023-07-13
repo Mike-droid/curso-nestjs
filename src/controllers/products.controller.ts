@@ -9,7 +9,7 @@ import {
   Query,
   HttpStatus,
   HttpCode,
-  //ParseIntPipe,
+  ParseIntPipe,
 } from '@nestjs/common';
 
 import { ProductsService } from 'src/services/products.service';
@@ -30,7 +30,7 @@ export class ProductsController {
   //! las rutas dinámicas deben de ir al final
   @Get(':id')
   @HttpCode(HttpStatus.OK)
-  getOne(@Param('id') id: number) {
+  getOne(@Param('id', ParseIntPipe) id: number) {
     return this.productsService.findOne(id);
   }
 
