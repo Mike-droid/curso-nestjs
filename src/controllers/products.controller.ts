@@ -40,14 +40,12 @@ export class ProductsController {
   }
 
   @Put(':id')
-  editOne(@Param('id') id: number, @Body() payload: any) {
-    this.productsService.update(id, payload);
+  editOne(@Param('id', ParseIntPipe) id: number, @Body() payload: any) {
+    return this.productsService.update(id, payload);
   }
 
   @Delete(':id')
-  deleteOne(@Param('id') id: number) {
-    return {
-      message: `Product with ID=${id} has been deleted`,
-    };
+  deleteOne(@Param('id', ParseIntPipe) id: number) {
+    return this.productsService.delete(id);
   }
 }
