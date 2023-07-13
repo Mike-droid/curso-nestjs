@@ -7,6 +7,8 @@ import {
   Post,
   Put,
   Query,
+  HttpStatus,
+  HttpCode,
 } from '@nestjs/common';
 
 @Controller('products')
@@ -24,9 +26,10 @@ export class ProductsController {
 
   //! las rutas dinámicas deben de ir al final
   @Get(':id')
+  @HttpCode(HttpStatus.ACCEPTED) //* 202
   getOne(@Param('id') id: string) {
     return {
-      meesage: `product ${id}`,
+      message: `product ${id}`,
     };
   }
 
