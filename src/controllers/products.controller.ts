@@ -9,44 +9,39 @@ import {
   Query,
   HttpStatus,
   HttpCode,
+  //ParseIntPipe,
 } from '@nestjs/common';
+
+import { ProductsService } from 'src/services/products.service';
 
 @Controller('products')
 export class ProductsController {
+  constructor(private productsService: ProductsService) {} //* Esto creará una inyección de dependencias
+
   @Get()
   getAll(
     @Query('limit') limit = 100,
     @Query('offset') offset = 0,
     @Query('brand') brand: string,
   ) {
-    return {
-      message: `products: limit => ${limit} - offset => ${offset} - brand => ${brand}`,
-    };
+    return this.productsService.findAll();
   }
 
   //! las rutas dinámicas deben de ir al final
   @Get(':id')
-  @HttpCode(HttpStatus.ACCEPTED) //* 202
-  getOne(@Param('id') id: string) {
-    return {
-      message: `product ${id}`,
-    };
+  @HttpCode(HttpStatus.OK)
+  getOne(@Param('id') id: number) {
+    return this.productsService.findOne(id);
   }
 
   @Post()
   createOne(@Body() payload: any) {
-    return {
-      message: 'Product created successfully',
-      payload,
-    };
+    return this.productsService.create(payload);
   }
 
   @Put(':id')
   editOne(@Param('id') id: number, @Body() payload: any) {
-    return {
-      message: `Product with ID=${id} has been updated`,
-      payload,
-    };
+    this.productsService.update(id, payload);
   }
 
   @Delete(':id')

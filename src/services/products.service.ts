@@ -35,13 +35,15 @@ export class ProductsService {
   }
 
   update(id: number, payload: any) {
-    const productIndex = this.products.findIndex((item) => item.id === id);
-    if (productIndex !== -1) {
-      this.products[productIndex] = {
-        ...this.products[productIndex],
+    const product = this.findOne(id);
+    console.log(product);
+    if (product) {
+      const index = this.products.findIndex((item) => item.id === id);
+      this.products[index] = {
+        ...product,
         ...payload,
       };
-      return this.products[productIndex];
+      return this.products[index];
     }
     return null;
   }
