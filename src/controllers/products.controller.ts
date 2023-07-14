@@ -14,6 +14,8 @@ import {
 
 import { ProductsService } from 'src/services/products.service';
 
+import { CreateProductDto, UpdateProductDto } from 'src/dtos/products.dtos';
+
 //import { ParseIntPipe } from 'src/common/parse-int/parse-int.pipe';
 //* podemos usar nuestras propias pipes
 
@@ -38,12 +40,15 @@ export class ProductsController {
   }
 
   @Post()
-  createOne(@Body() payload: any) {
+  createOne(@Body() payload: CreateProductDto) {
     return this.productsService.create(payload);
   }
 
   @Put(':id')
-  editOne(@Param('id', ParseIntPipe) id: number, @Body() payload: any) {
+  editOne(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() payload: UpdateProductDto,
+  ) {
     return this.productsService.update(id, payload);
   }
 
