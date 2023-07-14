@@ -14,6 +14,9 @@ import {
 
 import { ProductsService } from 'src/services/products.service';
 
+//import { ParseIntPipe } from 'src/common/parse-int/parse-int.pipe';
+//* podemos usar nuestras propias pipes
+
 @Controller('products')
 export class ProductsController {
   constructor(private productsService: ProductsService) {} //* Esto creará una inyección de dependencias
